@@ -27,6 +27,11 @@ function App() {
   }
 
 
+  const selectTaskStatus = (id,event) => {
+  setList(list.map(el => el.id === id ? {...el,status:event.target.value}:el))
+  }
+
+
   return (
     <div className="App">
 <h1>Task:{taskName}</h1>
@@ -35,7 +40,13 @@ function App() {
         <ul>
             {
                 list.map(el => <li key={el.id} className={el.status}>{el.name}<strong>{el.status}</strong>
+                <select value={el.status} onChange = {event => selectTaskStatus(el.id,event)}>
+                  <option value="todo">todo</option>
+                  <option value="progress">progress</option>
+                  <option value="review">review</option>
 
+
+                </select>
                 <button onClick={() => deleteTask(el.id)}>Delete</button>
                 <button onClick={() => changeStatusDone(el.id)}>Done</button>
 
